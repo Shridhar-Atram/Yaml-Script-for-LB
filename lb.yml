@@ -1,0 +1,15 @@
+- hosts: lb
+  tasks:
+    - name: "haproxy installtion"
+      package:
+        name: "haproxy"
+        state: present
+    - name: "Registration web server to lb"
+      template:
+        src: "local.cfg.j2"
+        dest: "/etc/haproxy/haproxy.cfg"
+
+    - name: "Start the service"
+      service:
+        name: "haproxy"
+        state: restarted
